@@ -1,0 +1,22 @@
+{
+  "name": "omniagent",
+  "version": "1.0.0",
+  "description": "Professional role-based skills for software development: PM, Tech Lead, Developer, QA. Covers the full SDLC from requirement analysis to testing.",
+  "author": {
+    "name": "omniclaws"
+  },
+  "repository": "https://github.com/omniclaws/skills",
+  "license": "MIT",
+  "keywords": [
+    "pm",
+    "product-manager",
+    "rd-leader",
+    "tech-lead",
+    "rd",
+    "developer",
+    "qa",
+    "tester",
+    "sdlc",
+    "agent-roles"
+  ]
+}

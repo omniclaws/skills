@@ -1,0 +1,16 @@
+{
+  "name": "omniclaws",
+  "description": "OmniClaws skill marketplace — professional AI agent roles for full SDLC coverage",
+  "owner": {
+    "name": "omniclaws"
+  },
+  "plugins": [
+    {
+      "name": "omniagent",
+      "description": "4 professional role-based skills (PM, RD-Leader, RD, QA) for full software development lifecycle. Use /omniagent:pm for PRD design, /omniagent:rd-leader for architecture and task breakdown, /omniagent:rd for coding, /omniagent:qa for testing.",
+      "source": "./",
+      "category": "development",
+      "keywords": ["pm", "rd", "qa", "sdlc", "product-manager", "tech-lead", "developer", "tester"]
+    }
+  ]
+}
