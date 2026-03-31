@@ -1,15 +1,71 @@
 # OmniAgent
 
-A Claude Code plugin that provides **4 professional role-based skills** covering the full software development lifecycle (SDLC) — from product requirements to architecture design, coding, and testing.
+A Claude Code plugin that provides **5 professional role-based skills** covering the full software development lifecycle (SDLC) — from planning to execution to review.
+
+## What Is This?
+
+OmniAgent is a **harness engineering** practice on top of Claude Code. Instead of one prompt doing everything, it encodes a **Planner → Generator → Evaluator** architecture into structured, reusable skills.
+
+The core idea of harness engineering: encode process discipline — role boundaries, checklists, workflow steps, artifact conventions — into the harness, so the model focuses on the actual work instead of figuring out how to work.
+
+### The Three-Layer Architecture
+
+```
+┌─────────────────────────────────────────────────┐
+│  Planner                                        │
+│  ┌───────────────────────────────────────────┐  │
+│  │                  Lead                     │  │
+│  │ Product Expert + Architect + QA Strategist│  │
+│  └───────────────────────────────────────────┘  │
+└──────────────────────┬──────────────────────────┘
+                       │ plan & decompose
+                       ▼
+┌─────────────────────────────────────────────────┐
+│  Generators                                     │
+│  ┌─────────────┐ ┌─────────────┐ ┌───────────┐  │
+│  │     PM      │ │     RD      │ │    QA     │  │
+│  │  Write PRD  │ │ Write Code  │ │Write Tests│  │
+│  └─────────────┘ └─────────────┘ └───────────┘  │
+└──────────────────────┬──────────────────────────┘
+                       │ deliverables
+                       ▼
+┌─────────────────────────────────────────────────┐
+│  Evaluator                                      │
+│  ┌───────────────────────────────────────────┐  │
+│  │                Reviewer                   │  │
+│  │  Reviews ALL layers: Plan + Deliverables  │  │
+│  └───────────────────────────────────────────┘  │
+└──────────────────────┬──────────────────────────┘
+                       │ feedback
+                       ▼
+              ┌─────────────────┐
+              │   Loop back to  │
+              │ Planner or      │
+              │ Generators      │
+              └─────────────────┘
+```
+
+**Lead (Planner)** — The team lead of PM, RD, and QA. A product expert, technical architect, and testing strategist rolled into one. Sets project direction, designs architecture, decomposes tasks across all roles.
+
+**PM / RD / QA (Generators)** — Execute the plan. PM writes PRDs, RD writes code, QA writes tests. Each follows upstream artifacts and project conventions.
+
+**Reviewer (Evaluator)** — The Lead's peer, not subordinate. An independent expert who reviews deliverables from ANY stage — including the Lead's own plan. Brings domain-specific expertise to each review: thinks like a project manager when reviewing plans, like an architect when reviewing code, like a QA lead when reviewing tests. Writes actionable feedback directly into the source role's doc directory, so it's automatically picked up on the next iteration.
+
+### Why Separate Lead and Reviewer?
+
+The person who made the plan shouldn't be the one who judges whether the plan is good. Separating planning and evaluation as peer roles prevents "reviewing your own homework" and creates an honest quality gate.
+
+The Reviewer can push back on the Lead's plan — and should, if there are gaps in scope, lopsided task breakdowns, or unrealistic timelines. This tension is by design.
 
 ## Features
 
-| Role | Skill | Description |
-|------|-------|-------------|
-| **PM** | `/omniagent:pm` | Market research, competitive analysis, user personas, structured PRD generation |
-| **RD-Leader** | `/omniagent:rd-leader` | Architecture design, technology selection, API contracts, task decomposition |
-| **RD** | `/omniagent:rd` | Code implementation following design specs, self-testing, code self-review |
-| **QA** | `/omniagent:qa` | Test strategy, unit tests, E2E tests, execution, and coverage reporting |
+| Role | Skill | Architecture Role | Description |
+|------|-------|-------------------|-------------|
+| **Lead** | `/omniagent:lead` | Planner | Project planning, architecture design, cross-role task decomposition |
+| **PM** | `/omniagent:pm` | Generator | Market research, competitive analysis, user personas, structured PRD |
+| **RD** | `/omniagent:rd` | Generator | Code implementation following design specs, self-testing |
+| **QA** | `/omniagent:qa` | Generator | Test strategy, unit tests, E2E tests, coverage reporting |
+| **Reviewer** | `/omniagent:reviewer` | Evaluator | Independent expert review of any deliverable, feedback to source role |
 
 ## Installation
 
@@ -23,66 +79,83 @@ claude plugin install omniagent@omniclaws
 
 ## Usage
 
-Each role can be invoked independently via slash commands:
-
 ```bash
-# Product Manager — generate a PRD
+# Lead — plan the project and break down tasks
+/omniagent:lead Plan the full development of the task manager
+
+# PM — generate a PRD
 /omniagent:pm Design a task management app for remote teams
 
-# Tech Lead — create architecture design + task breakdown
-/omniagent:rd-leader Design the technical architecture for the task manager
-
-# Developer — implement code following the design
+# RD — implement code
 /omniagent:rd Implement the user authentication module
 
-# QA Engineer — write and run tests
+# QA — write and run tests
 /omniagent:qa Write tests for the authentication module
+
+# Reviewer — review any stage
+/omniagent:reviewer Review the project plan
+/omniagent:reviewer Review the PRD
+/omniagent:reviewer Review the latest code changes
+/omniagent:reviewer Review the test coverage
 ```
 
-### Role Collaboration Pipeline
-
-Roles can work independently, but when used together they form a pipeline. Each role auto-detects artifacts produced by upstream roles:
+### The Planner → Generator → Evaluator Loop
 
 ```
-PM (PRD)
-  ↓ docs/prd/*.md
-RD-Leader (Design + Tasks)
-  ↓ docs/design/*.md + TaskList
-RD (Code)
-  ↓ code changes
-QA (Tests)
+1. Plan     /omniagent:lead      →  docs/plan/*.md + TaskList
+2. Review   /omniagent:reviewer  →  docs/plan/review/*.md (is the plan sound?)
+3. Revise   /omniagent:lead      →  incorporates feedback, updates plan
+4. Generate /omniagent:pm        →  docs/prd/*.md
+            /omniagent:rd        →  code commits
+            /omniagent:qa        →  test files + reports
+5. Review   /omniagent:reviewer  →  feedback into each role's docs/
+6. Iterate  Roles pick up feedback automatically on next activation
 ```
 
-For example, when you invoke `/omniagent:rd-leader`, it automatically scans `docs/prd/` for the latest PRD and incorporates it into the technical design. No manual wiring needed.
+The Reviewer can enter at **any** point in this loop. Review the plan before generators start. Review the PRD before coding begins. Review the code before testing. Review the tests before shipping. The earlier you review, the cheaper it is to fix.
+
+### Feedback Flow
+
+The Reviewer writes feedback **into the reviewed role's own doc directory**, creating a natural feedback loop:
+
+| Reviewed Role | Feedback Location | What Reviewer Brings |
+|--------------|-------------------|---------------------|
+| Lead | `docs/plan/review/` | Project management expertise — scope gaps, task balance, sequencing |
+| PM | `docs/prd/review/` | Product expertise — requirement clarity, edge cases, testability |
+| RD | `docs/rd/review/` | Architecture expertise — performance, maintainability, error handling |
+| QA | `docs/test-report/review/` | QA expertise — coverage gaps, boundary conditions, flakiness risks |
 
 ### Output Artifacts
 
 | Role | Output Location |
 |------|----------------|
+| Lead | `docs/plan/YYYY-MM-DD-<topic>.md` + TaskList |
 | PM | `docs/prd/YYYY-MM-DD-<topic>.md` |
-| RD-Leader | `docs/design/YYYY-MM-DD-<topic>.md` + TaskList |
 | RD | Code commits |
 | QA | Test files + `docs/test-report/YYYY-MM-DD-<topic>.md` |
+| Reviewer | `docs/<role>/review/YYYY-MM-DD-<topic>.md` |
 
 ## Project Structure
 
 ```
 .claude-plugin/
-├── marketplace.json      # Marketplace definition
-└── plugin.json           # Plugin metadata
+├── marketplace.json
+└── plugin.json
 skills/
-├── pm/
-│   ├── SKILL.md          # Product Manager skill
-│   └── references/
-│       └── prd-template.md
-├── rd-leader/
-│   ├── SKILL.md          # Tech Lead skill
+├── lead/
+│   ├── SKILL.md             # Lead skill (Planner)
 │   └── references/
 │       └── design-template.md
+├── pm/
+│   ├── SKILL.md             # PM skill (Generator)
+│   └── references/
+│       └── prd-template.md
 ├── rd/
-│   └── SKILL.md          # Developer skill
-└── qa/
-    └── SKILL.md          # QA Engineer skill
+│   └── SKILL.md             # RD skill (Generator)
+├── qa/
+│   └── SKILL.md             # QA skill (Generator)
+└── reviewer/
+    └── SKILL.md             # Reviewer skill (Evaluator)
 ```
 
 ## License

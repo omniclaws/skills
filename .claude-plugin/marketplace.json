@@ -7,10 +7,10 @@
   "plugins": [
     {
       "name": "omniagent",
-      "description": "4 professional role-based skills (PM, RD-Leader, RD, QA) for full software development lifecycle. Use /omniagent:pm for PRD design, /omniagent:rd-leader for architecture and task breakdown, /omniagent:rd for coding, /omniagent:qa for testing.",
+      "description": "5 role-based skills implementing Planner→Generator→Evaluator architecture. /omniagent:lead for planning and task breakdown, /omniagent:pm for PRD, /omniagent:rd for coding, /omniagent:qa for testing, /omniagent:reviewer for independent review of any deliverable.",
       "source": "./",
       "category": "development",
-      "keywords": ["pm", "rd", "qa", "sdlc", "product-manager", "tech-lead", "developer", "tester"]
+      "keywords": ["lead", "pm", "rd", "qa", "reviewer", "sdlc", "harness-engineering"]
     }
   ]
 }
