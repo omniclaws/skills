@@ -70,12 +70,21 @@ The Reviewer can push back on the Lead's plan — and should, if there are gaps 
 ## Installation
 
 ```bash
-# Step 1: Register the marketplace
+# Register the marketplace
 claude plugin marketplace add omniclaws/skills
 
-# Step 2: Install the plugin
+# Install the plugin
 claude plugin install omniagent@omniclaws
 ```
+
+## Update
+
+```bash
+# Update to the latest version
+claude plugin update omniagent@omniclaws
+```
+
+If you previously installed an older version (with `rd-leader` instead of `lead` + `reviewer`), updating will automatically pick up the new roles. No manual migration needed — just update and the new skills are available.
 
 ## Usage
 
