@@ -80,7 +80,10 @@ claude plugin install omniagent@omniclaws
 ## Update
 
 ```bash
-# Update to the latest version
+# Step 1: Update the marketplace index
+claude plugin marketplace update omniclaws/skills
+
+# Step 2: Update the plugin
 claude plugin update omniagent@omniclaws
 ```
 
