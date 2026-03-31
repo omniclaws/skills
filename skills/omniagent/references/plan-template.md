@@ -25,7 +25,7 @@
 
 ## 5. Architecture Overview
 
-[High-level system diagram described in text. Components, their responsibilities, and how they connect. Skip if non-technical project.]
+[High-level system diagram described in text. Skip if non-technical project.]
 
 ### Component List
 
@@ -61,22 +61,11 @@
 ## 9. Workstream Breakdown
 
 ### Product
-[PRD refinement, user stories, acceptance criteria tasks]
-
 ### Design
-[UI/UX design, wireframes, mockups tasks]
-
 ### Development
-[Frontend, backend, infrastructure implementation tasks]
-
 ### Testing
-[Test strategy, unit tests, E2E tests, test execution tasks]
-
 ### Deployment
-[CI/CD, environment setup, monitoring tasks]
-
 ### Documentation
-[User docs, API docs, runbooks tasks]
 
 ## 10. Task Breakdown
 

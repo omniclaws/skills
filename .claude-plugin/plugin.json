@@ -1,7 +1,7 @@
 {
   "name": "omniagent",
-  "version": "2.0.0",
-  "description": "5 professional role-based skills implementing a three-agent architecture (Planner → Generator → Evaluator) for full SDLC coverage.",
+  "version": "3.0.0",
+  "description": "Single-skill harness engineering plugin with 5 roles (Lead, PM, RD, QA, Reviewer) implementing a Planner→Generator→Evaluator architecture. Roles loaded as references on demand.",
   "author": {
     "name": "omniclaws"
   },
@@ -17,7 +17,6 @@
     "generator",
     "evaluator",
     "sdlc",
-    "harness-engineering",
-    "agent-roles"
+    "harness-engineering"
   ]
 }

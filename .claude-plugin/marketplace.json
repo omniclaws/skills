@@ -1,13 +1,13 @@
 {
   "name": "omniclaws",
-  "description": "OmniClaws skill marketplace — professional AI agent roles for full SDLC coverage",
+  "description": "OmniClaws skill marketplace — harness engineering for AI-powered software teams",
   "owner": {
     "name": "omniclaws"
   },
   "plugins": [
     {
       "name": "omniagent",
-      "description": "5 role-based skills implementing Planner→Generator→Evaluator architecture. /omniagent:lead for planning and task breakdown, /omniagent:pm for PRD, /omniagent:rd for coding, /omniagent:qa for testing, /omniagent:reviewer for independent review of any deliverable.",
+      "description": "Single skill with 5 roles (Lead, PM, RD, QA, Reviewer) implementing Planner→Generator→Evaluator architecture. /omniagent lead for planning, /omniagent pm for PRD, /omniagent rd for coding, /omniagent qa for testing, /omniagent reviewer for independent review.",
       "source": "./",
       "category": "development",
       "keywords": ["lead", "pm", "rd", "qa", "reviewer", "sdlc", "harness-engineering"]

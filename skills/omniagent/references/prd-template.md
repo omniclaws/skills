@@ -18,12 +18,6 @@
 - **Goals**:
 - **Pain Points**:
 
-### Persona 2: [Name]
-- **Role**:
-- **Background**:
-- **Goals**:
-- **Pain Points**:
-
 ## 4. User Stories
 
 | ID | As a... | I want to... | So that... | Priority |
@@ -43,11 +37,6 @@
 |----|---------|-------------|-------------------|----------|
 | FR-001 | | | | P0 |
 
-### Module 2: [Name]
-
-| ID | Feature | Description | Acceptance Criteria | Priority |
-|----|---------|-------------|-------------------|----------|
-
 ## 7. Non-Functional Requirements
 
 | Category | Requirement | Target |
@@ -59,7 +48,7 @@
 
 ## 8. Information Architecture
 
-[Page/screen hierarchy, navigation flow — describe in text or list form]
+[Page/screen hierarchy, navigation flow]
 
 ## 9. Milestones & Timeline
 
@@ -72,4 +61,4 @@
 
 ## 11. Appendix
 
-[Any supporting data, research links, or reference materials]
+[Supporting data, research links, reference materials]
